@@ -25,7 +25,7 @@ SECRET_KEY = 't&$bvw05j0++e-%06b^73amnnh%#z*a&82e1_lainf)1ih0i5y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [hunterspace.herokuapp.com]
+ALLOWED_HOSTS = ['hunterspace.herokuapp.com']
 
 
 # Application definition
