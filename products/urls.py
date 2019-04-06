@@ -7,4 +7,4 @@ urlpatterns = [
     path('create/', create, name='create'),
     path('<int:product_id>', detail, name='detail'),
     path('<int:product_id>/upvote', upvote, name='upvote'),
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root = settings.DEFAULT_FILE_STORAGE)
