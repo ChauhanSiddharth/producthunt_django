@@ -25,7 +25,7 @@ SECRET_KEY = 't&$bvw05j0++e-%06b^73amnnh%#z*a&82e1_lainf)1ih0i5y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [hunterspace.herokuapp.com]
 
 
 # Application definition
@@ -127,9 +127,10 @@ STATICFILES_DIRS =[
         os.path.join(BASE_DIR, 'producthunt/static')
 ]
 
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
