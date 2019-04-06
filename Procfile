@@ -1,1 +1,1 @@
-web: gunicorn hunterspace.wsgi --log-file -
+web: gunicorn producthunt.wsgi --log-file -
