@@ -25,7 +25,7 @@ SECRET_KEY = 't&$bvw05j0++e-%06b^73amnnh%#z*a&82e1_lainf)1ih0i5y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hunterspace.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','hunterspace.herokuapp.com']
 
 
 # Application definition
@@ -120,6 +120,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+
+"""
 AWS_ACCESS_KEY_ID = 'AKIAUGIYHHFY2W2CLZFS'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'huntermedia'
@@ -128,14 +131,16 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 AWS_LOCATION = 'static'
+"""
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'producthunt/static'),
 ]
-STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+DEFAULT_FILE_STORAGE = 'db_file_storage.storage.DatabaseFileStorage'
+#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-DEFAULT_FILE_STORAGE = 'producthunt.storage_backends.MediaStorage'
+#DEFAULT_FILE_STORAGE = 'producthunt.storage_backends.MediaStorage'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -147,7 +152,7 @@ DEFAULT_FILE_STORAGE = 'producthunt.storage_backends.MediaStorage'
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-#STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
