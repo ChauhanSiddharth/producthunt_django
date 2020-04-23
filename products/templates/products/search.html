@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{error}}
+<div class="container">
+  <h2>Search Result</h2>
+  <p class="text-muted">{{message}}</p>
+  <br/><br/>
+  <ul class="list-group">
+    {% for post in searchResult %}
+    <li class="list-group-item">{{post.title}}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+{% endblock %}

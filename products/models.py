@@ -1,12 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 from db_file_storage.model_utils import delete_file, delete_file_if_needed
+from django.core.validators import RegexValidator
 
 
 # Create your models here.
 class Product(models.Model):
     title = models.CharField(max_length = 255)
-    url = models.TextField()
+    url = models.URLField(max_length=200, null=True, blank=True,
+                          validators=
+                            [RegexValidator(
+                                regex= '/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+                                message='Not a valid URL',
+                            )])
     pub_date = models.DateTimeField()
     votes_total = models.IntegerField(default=1)
     image = models.ImageField(upload_to = 'products.ConsolePicture/bytes/filename/mimetype', blank=True, null=True)
@@ -14,7 +20,7 @@ class Product(models.Model):
     body = models.TextField()
     hunter = models.ForeignKey(User, on_delete = models.CASCADE)
 
-    
+
     def __str__(self):
         return self.title
 

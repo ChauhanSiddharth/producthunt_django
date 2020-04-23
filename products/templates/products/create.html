@@ -4,14 +4,14 @@
 {{error}}
 <div class="container">
 	<h2 align="center">Create Product!</h2>
-	<form action="{% url 'create' %}" enctype="multipart/form-data" method="post" style="padding: 50px 0 250px 500px;">{% csrf_token %}
-		Title: <br/><input type="text" name="title" required>
-		<br/>Body:<br/><input type="textbox" name="body" required>
-    <br/>Url: <br/><input type="text" name="url" required>
+	<form action="{% url 'create' %}" enctype="multipart/form-data" class="form-group" method="post">{% csrf_token %}
+		Title: <br/><input class="form-control" type="text" name="title" required>
+		<br/>Body:<br/><textarea class="form-control" name="body" rows="8" cols="80" required></textarea>
+    <br/>Url: <br/><input class="form-control" type="text" name="url" required>
     <br/>Icon: <br/><input type="file" name="icon" required>
     <br/>Image: <br/><input type="file" name="image" required>
 		<br/><br/>
-		<input type="submit" value="Add Product" class="btn-primary btn-md">
+		<input type="submit" value="Add Product" class="btn btn-primary btn-md">
 	</form>
 </div>
 
