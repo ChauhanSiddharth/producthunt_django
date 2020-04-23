@@ -69,7 +69,7 @@ def editPost(request, product_id):
 def searchPost(request):
 	if request.method=='POST':
 		searchText = request.POST['searchPost']
-		posts = Product.objects.filter(title__contains=searchText)
+		posts = Product.objects.filter(title__icontains=searchText)
 
 		if posts:
 			return render(request, 'products/search.html',{'searchResult':posts,'message':'Found'})
