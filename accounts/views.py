@@ -51,7 +51,7 @@ def editPost(request, product_id):
 	user = auth.authenticate(username=request.user.username)
 	user_data = User.objects.filter(username=request.user)
 	if request.POST:
-		if request.POST.get('title') or request.POST.get('url') or request.POST.get('body') or request.FILES['image']:
+		if request.POST.get('title') or request.POST.get('url') or request.POST.get('body') or request.FILES['image'] or request.FILES['icon']:
 			title = request.POST.get('title')
 			url = request.POST.get('url')
 			body = request.POST.get('body')

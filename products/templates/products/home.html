@@ -14,10 +14,7 @@
         <td><img src="{{product.icon.url}}" height="60" width="35"></td>
         <td><a href="javascript:{document.getElementById('detail').submit()}"><h2 class="lead">{{product.title}}</h2></a></td>
         <td><p class="lead">{{product.hunter}}</p></td>
-        <td><a href="javascript:{document.getElementById('upvote').submit()}"><button class="btn btn-primary btn-sm">Upvote {{ product.votes_total }}</button></a></td>
-        <form method="POST" id="upvote" action="{% url 'upvote' product.id %}">{% csrf_token %}
-          <input type="hidden">
-        </form>
+        <td><i class="fas fa-angle-up"></i> {{ product.votes_total }}</td>
       </tr>
     </tbody>
     <form method="post" class="detail" action="{% url 'detail' product.id %}">{% csrf_token %}
