@@ -5,13 +5,15 @@
 	{{error}}
 	<div class="container">
 		<h2 align="center">Sign Up!</h2>
-		<form action="{% url 'signup' %}" method="post" style="padding: 50px 0 250px 500px;">{% csrf_token %}
-			Name: <br/><input type="text" name="username" required>
-			<br/>Password:<br/><input type="password" name="password" required>
-			<br/>Confirm Password: <br/> <input type="password" name="cpassword" required>
-			<br/><br/>
-			<input type="submit" value="Submit" class="btn-primary btn-md">
+		<center>
+		<form class="form-group" action="{% url 'signup' %}" method="post" style="width:40%;">{% csrf_token %}
+			<br/><input type="text" class="form-control" placeholder="Enter Username" name="username" required>
+			<br/><input type="password" class="form-control" placeholder="Enter Password" name="password" required>
+			<br/><input class="form-control" type="password" placeholder="Re-enter Password" name="cpassword" required>
+			<br/>
+			<input type="submit" value="Submit" class="btn btn-primary btn-md">
 		</form>
+		</center>
 	</div>
 
 {% endblock %}

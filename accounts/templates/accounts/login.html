@@ -4,12 +4,15 @@
 {{error}}
 <div class="container">
 	<h2 align="center">Login!</h2>
-	<form action="{% url 'login' %}" method="post" style="padding: 50px 0 250px 500px;">{% csrf_token %}
-		Name: <br/><input type="text" name="username" required>
-		<br/>Password:<br/><input type="password" name="password" required>
-		<br/><br/>
-		<input type="submit" value="Login" class="btn-primary btn-md">
+	<center>
+	<form action="{% url 'login' %}" class="form-group" method="post" style="width:30%;">{% csrf_token %}
+		<br/>
+		<input type="text" class="form-control" name="username" placeholder="Username" required>
+		<br/><input type="password" class="form-control" name="password" placeholder="Password" required>
+		<br/>
+		<input type="submit" value="Login" class="btn btn-primary btn-md">
 	</form>
+	</center>
 </div>
 
 
