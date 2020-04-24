@@ -7,7 +7,6 @@ from django.utils import timezone
 
 def home(request):
 	products = Product.objects.order_by('-votes_total')
-
 	return render(request, 'products/home.html',{'products':products})
 
 @login_required
@@ -31,7 +30,6 @@ def create(request):
 			return render(request, 'products/create.html',{'error':'All field required'})
 	else:
 		return render(request, 'products/create.html')
-	return render(request, 'products/create.html')
 
 def detail(request, product_id):
 	product = get_object_or_404(Product, pk=product_id)

@@ -23,7 +23,7 @@
         <img src="{{ product.image.url }}" class="img-fluid">
       </div>
       <div class="col-6">
-        <p class="lead">{{ product.summary }}</p>
+        <p class="lead">{{ product.body| linebreaks }}</p>
       </div>
     </div>
 <br/>
