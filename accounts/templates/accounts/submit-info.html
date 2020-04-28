@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	{{error}}
+	<div class="container">
+		<h2 align="center">More Details</h2>
+		<center>
+		<form class="form-group" action="{% url 'addinfo' %}" method="post" style="width:40%;">{% csrf_token %}
+			<br/><input type="text" class="form-control" placeholder="Enter Firstname" name="firstname" required>
+            <br/><input type="text" class="form-control" placeholder="Enter Lastname" name="lastname" required>
+            <br/><input type="date" class="form-control" placeholder="Date of Birth" name="dob" required>
+            <br/><input type="text" class="form-control" placeholder="Enter address" name="address" >
+            <br/><input type="text" class="form-control" placeholder="Enter profession" name="profession" >
+            <br/><input type="text" class="form-control" placeholder="Enter Bio" name="bio" >
+			<br/>
+			<input type="submit" value="Submit" class="btn btn-primary btn-md">
+		</form>
+		</center>
+	</div>
+
+{% endblock %}

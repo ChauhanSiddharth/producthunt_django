@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
+from accounts.models import UserProfile
 from products.models import Product
 # Create your views here.
 
@@ -23,19 +24,35 @@ def signup(request):
 				user = User.objects.get(username = request.POST['username'])
 				return render(request,'accounts/signup.html',{'error':'Your username is taken'})
 			except User.DoesNotExist:
-				user = User.objects.create_user(request.POST['username'],password=request.POST['password'])
+				user = User.objects.create_user(request.POST['username'],password=request.POST['password'], email=request.POST['email'])
 				auth.login(request,user)
-				return redirect('home')
+				return redirect('addinfo')
 		else:
 			return render(request,'accounts/signup.html',{'error':'password must match'})
-		#User
 	else:
 		return render(request, 'accounts/signup.html')
 
 @login_required
+def addInfo(request):
+	user = auth.authenticate(username=request.user.username)
+	if request.method=='POST':
+		if request.POST['firstname']:
+			firstname = request.POST.get('firstname')
+			lastname = request.POST.get('lastname')
+			dob = request.POST.get('dob')
+			address = request.POST.get('address')
+			bio = request.POST.get('bio')
+			profession = request.POST.get('profession')
+			userData = UserProfile(user = request.user, firstname=firstname, lastname=lastname, dob=dob,address=address,bio=bio, profession=profession)
+			userData.save()
+			return redirect('profile')
+	else:
+		return render(request, 'accounts/submit-info.html')
+
+@login_required
 def myprofile(request):
 	user = auth.authenticate(username=request.user.username)
-	user_data = User.objects.filter(username=request.user)
+	user_data = UserProfile.objects.filter(user=request.user)
 	posts = Product.objects.filter(hunter=request.user)
 	return render(request, 'products/profile.html',{'userdata':user_data,'posts':posts})
 
@@ -70,9 +87,10 @@ def searchPost(request):
 	if request.method=='POST':
 		searchText = request.POST['searchPost']
 		posts = Product.objects.filter(title__icontains=searchText)
-
-		if posts:
-			return render(request, 'products/search.html',{'searchResult':posts,'message':'Found'})
+		member = User.objects.filter(username=searchText)
+		print(member)
+		if posts or member:
+			return render(request, 'products/search.html',{'searchResult':posts,'message':'Found','member':member})
 		else:
 			return render(request, 'products/search.html',{'message':"Not Found"})
 

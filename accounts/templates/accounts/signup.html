@@ -8,6 +8,7 @@
 		<center>
 		<form class="form-group" action="{% url 'signup' %}" method="post" style="width:40%;">{% csrf_token %}
 			<br/><input type="text" class="form-control" placeholder="Enter Username" name="username" required>
+            <br/><input type="email" class="form-control" placeholder="Enter Email" name="email" required>
 			<br/><input type="password" class="form-control" placeholder="Enter Password" name="password" required>
 			<br/><input class="form-control" type="password" placeholder="Re-enter Password" name="cpassword" required>
 			<br/>

@@ -1,72 +1,110 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-  <div class="jumbotron">
-    {% for member in userdata %}
-  <h1 class="display-4">Welcome, {{member.first_name}} {{member.last_name}} </h1>
-  {% endfor %}
-</div>
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" href="#">My Posts</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Edit Profile</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Account Settings</a>
-  </li>
-</ul>
-
-<table class="table table-hover mt-3">
-  <thead>
-    <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Date Created</th>
-      <th scope="col">Modify</th>
-      <th scope="col">Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for post in posts %}
-    <tr>
-      <td><a href="{% url 'detail' post.id %}">{{post.title}}</a></td>
-      <td>{{ post.pub_date_pretty }}</td>
-      <td><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal">Edit Post</button></td>
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <form class="form-group" action="{% url 'updatePost' post.id %}" method="post">{% csrf_token %}
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit {{post.title}}</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+    <div class="container">
+    <div class="jumbotron">
+        {% for member in userdata %}
+            <h1 class="display-4">{{ member.firstname }} {{ member.lastname }} </h1>
+            <footer class="blockquote-footer">{{ member.bio }} as <cite title="Source Title">{{ member.profession }}</cite></footer>
+            <small class="text-muted"><i class="fas fa-map-marker-alt fa-sm"></i> &nbsp;{{ member.address }}</small>
+        {% endfor %}
+    </div>
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                            aria-expanded="true" aria-controls="collapseOne" style="text-decoration: none;color: black;">
+                        Personal Information
+                    </button>
+                </h2>
             </div>
-            <div class="modal-body">
 
-                  <input type="text" class="form-control" name="title" value="{{post.title}}"><br>
-                  <input type="text" class="form-control" name="url" value="{{post.url}}"><br>
-                  <textarea class="form-control" name="body" rows="8">{{post.body}}</textarea><br>
-                  Image <input type="file" name="image">
-                  Icon <input type="file" name="icon">
-
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    {% for member in userdata %}
+                        <p class="card-text">First Name : {{ member.firstname }}</p>
+                        <p class="card-text">Last Name : {{ member.lastname }}</p>
+                        <p class="card-text">Date of Birth : {{ member.dob }}</p>
+                        <p class="card-text">Date of Join : {{ member.join_date }}</p>
+                        <p class="card-text">Profession : {{ member.profession }}</p>
+                        <p class="card-text">Bio : {{ member.bio }}</p>
+                        <p class="card-text">Location : {{ member.address }}</p>
+                        <a href="#" class="btn btn-primary">Update Info</a>
+                        <a href="#"  style="text-decoration: none;">&nbsp;&nbsp;&nbsp;<i class="fas fa-users-cog fa-lg"></i></a>
+                    {% endfor %}
+                </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
-            </form>
-          </div>
         </div>
-      </div>
-      <td><button class="btn btn-danger btn-sm"><a href="{% url 'delete' post.id %}" style="text-decoration:none;color:white;">Delete Post</a></button></td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    </div>
+    <br/>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">My Posts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Notifications <span class="badge badge-light">0</span></a>
+        </li>
+    </ul>
+
+    <table class="table table-hover mt-3">
+        <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Date Created</th>
+            <th scope="col">Modify</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        {% for post in posts %}
+            <tbody>
+            <tr>
+                <td><a href="{% url 'detail' post.id %}">{{ post.title }}</a></td>
+                <td>{{ post.pub_date_pretty }}</td>
+                <td>
+                    <a style="color:green;text-decoration: none;cursor: pointer;" data-toggle="modal" data-target="#exampleModal{{ post.id }}">
+                        <i class="fas fa-pen-square fa-lg"></i>
+                    </a>
+                </td>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal{{ post.id }}" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Edit {{ post.title }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-group" id="editForm{{ post.id }}"
+                                      action="{% url 'updatePost' post.id %}" method="post">{% csrf_token %}
+                                    <input type="text" class="form-control" name="title" value="{{ post.title }}"><br>
+                                    <input type="text" class="form-control" name="url" value="{{ post.url }}"><br>
+                                    <textarea class="form-control" name="body" rows="8">{{ post.body }}</textarea><br>
+                                    Image <input type="file" name="image">
+                                    Icon <input type="file" name="icon">
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary"
+                                        onclick="document.getElementById('editForm{{ post.id }}').submit();">Save
+                                    changes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <td>
+                    <a href="{% url 'delete' post.id %}" style="text-decoration:none;color:red;"><i class="fas fa-trash-alt fa-1x"></i></a>
+
+                </td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
 
 
 

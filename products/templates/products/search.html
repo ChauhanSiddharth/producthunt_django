@@ -1,17 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{{error}}
-<div class="container">
-  <h2>Search Result</h2>
-  <p class="text-muted">{{message}} {{ searchResult|length }}</p>
-  <br/><br/>
-  <ul class="list-group">
-    {% for post in searchResult %}
-    <li class="list-group-item"><a href="{% url 'detail' post.id %}">{{post.title}}</a></li>
-    {% endfor %}
-  </ul>
-</div>
+    {{ error }}
+    <div class="container">
+        <h2>Search Result</h2>
+        <p class="text-muted">{{ message }}</p>
+        {% if searchResult %}
+            <p class="text-muted">Posts ({{ searchResult|length }})</p>
+        {% endif %}
+        <ul class="list-group">
+            {% for post in searchResult %}
+                <li class="list-group-item"><a href="{% url 'detail' post.id %}">{{ post.title }}</a></li>
+            {% endfor %}
+        </ul>
+    <br/>
+        {% if member %}
+            <p class="text-muted">Users ({{ member|length }})</p>
+        {% endif %}
+        <ul class="list-group">
+            {% for m in member %}
+            <li class="list-group-item"><a href="#">{{ m }}</a></li>
+            {%  endfor %}
+        </ul>
+    </div>
 
 
 {% endblock %}
