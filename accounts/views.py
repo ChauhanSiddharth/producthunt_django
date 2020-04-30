@@ -82,13 +82,23 @@ def editPost(request, product_id):
 			Product.objects.filter(pk=product_id).update(body = body)
 			return redirect('/accounts/profile/')
 
+def viewUser(request, username):
+	try:
+		result = User.objects.filter(username=username)
+	except:
+		return
+	for data in result:
+		username = data.id
+	data = UserProfile.objects.filter(user=username)
+	posts = Product.objects.filter(hunter=username)
+	return render(request, 'accounts/user.html', {'userdata':data, 'posts':posts})
+
 
 def searchPost(request):
 	if request.method=='POST':
 		searchText = request.POST['searchPost']
 		posts = Product.objects.filter(title__icontains=searchText)
 		member = User.objects.filter(username=searchText)
-		print(member)
 		if posts or member:
 			return render(request, 'products/search.html',{'searchResult':posts,'message':'Found','member':member})
 		else:
