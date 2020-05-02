@@ -2,91 +2,106 @@
 
 {% block content %}
     <div class="container">
-    <div class="jumbotron">
-        {% for member in userdata %}
-            <h1 class="display-4">{{ member.firstname }} {{ member.lastname }} </h1>
-            <footer class="blockquote-footer">{{ member.bio }} as <cite title="Source Title">{{ member.profession }}</cite></footer>
-            <small class="text-muted"><i class="fas fa-map-marker-alt fa-sm"></i> &nbsp;{{ member.address }}</small>
-        {% endfor %}
-    </div>
-    <div class="accordion" id="accordionExample">
-        <div class="card">
-            <div class="card-header" id="headingOne">
-                <h2 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
-                            aria-expanded="true" aria-controls="collapseOne"
-                            style="text-decoration: none;color: black;">
-                        Personal Information &nbsp;<i class="fas fa-info"></i>
-                    </button>
-                </h2>
-            </div>
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="card-body">
-                    {% for member in userdata %}
-                        <p class="card-text">First Name : {{ member.firstname }}</p>
-                        <p class="card-text">Last Name : {{ member.lastname }}</p>
-                        <p class="card-text">Date of Birth : {{ member.dob }}</p>
-                        <p class="card-text">Date of Join : {{ member.join_date }}</p>
-                        <p class="card-text">Profession : {{ member.profession }}</p>
-                        <p class="card-text">Bio : {{ member.bio }}</p>
-                        <p class="card-text">Location : {{ member.address }}</p>
-                        <a href="{% url 'settings' %}" class="btn btn-primary">Account Settings</a>
-                    {% endfor %}
+        <div class="jumbotron">
+            {% for member in userdata %}
+                <h1 class="display-4">{{ member.firstname }} {{ member.lastname }} </h1>
+                <footer class="blockquote-footer">{{ member.bio }} as <cite
+                        title="Source Title">{{ member.profession }}</cite></footer>
+                <small class="text-muted"><i class="fas fa-map-marker-alt fa-sm"></i> &nbsp;{{ member.address }}</small>
+            {% endfor %}
+        </div>
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                                aria-expanded="true" aria-controls="collapseOne"
+                                style="text-decoration: none;color: black;">
+                            Personal Information &nbsp;<i class="fas fa-info"></i>
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                     data-parent="#accordionExample">
+                    <div class="card-body">
+                        {% for member in userdata %}
+                            <p class="card-text">First Name : {{ member.firstname }}</p>
+                            <p class="card-text">Last Name : {{ member.lastname }}</p>
+                            <p class="card-text">Date of Birth : {{ member.dob }}</p>
+                            <p class="card-text">Date of Join : {{ member.join_date }}</p>
+                            <p class="card-text">Profession : {{ member.profession }}</p>
+                            <p class="card-text">Bio : {{ member.bio }}</p>
+                            <p class="card-text">Location : {{ member.address }}</p>
+                            <a href="{% url 'settings' %}" class="btn btn-primary">Account Settings</a>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card">
-            <div class="card-header" id="headingTwo">
-                <h2 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo"
-                            aria-expanded="true" aria-controls="collapseOne"
-                            style="text-decoration: none;color: black;">
-                        Friend List &nbsp;<i class="fas fa-users"></i>
-                    </button>
-                </h2>
-            </div>
-            <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                <div class="card-body">
-                    {% for result in friend_requests %}
-                        {% if result.added is True %}
-                            {% if result.member.user == request.user %}
-                                <p class="card-text"><a href="{% url 'users' result.friend %}">{{result.friend}}</a></p>
-                            {% else %}
-                                <p class="card-text"><a href="{% url 'users' result.member.user.username %}">{{result.member}}</a></p>
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo"
+                                aria-expanded="true" aria-controls="collapseOne"
+                                style="text-decoration: none;color: black;">
+                            Friend List &nbsp;<i class="fas fa-users"></i>
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
+                     data-parent="#accordionExample">
+                    <div class="card-body">
+                        {% for result in friend_requests %}
+                            {% if result.added is True %}
+                                {% if result.member.user == request.user %}
+                                    <p class="card-text"><a
+                                            href="{% url 'users' result.friend %}">{{ result.friend }}</a></p>
+                                {% else %}
+                                    <p class="card-text"><a
+                                            href="{% url 'users' result.member.user.username %}">{{ result.member }}</a>
+                                    </p>
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <br/>
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' %}">My Posts</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="{% url 'notification' %}">Notifications
-                <span class="badge badge-light">{% for req in friend_requests %}{% if req.added is False %}{% if req.member.user != request.user %}{{ friend_requests|length }}{% endif %}{% endif %}{% endfor %}</span></a>
-        </li>
-    </ul>
+        <br/>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile' %}">My Posts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'notification' %}">Notifications
+                    <span class="badge badge-light">{% for req in friend_requests %}{% if req.added is False %}
+                        {% if req.member.user != request.user %}{{ friend_requests|length }}{% endif %}
+                    {% endif %}{% endfor %}</span></a>
+            </li>
+        </ul>
 
-    <div class="card w-100 mt-2">
-    {% for req in friend_requests %}
-        {% if req.member.user != request.user %}
-        {% if req.added is False %}
-        <div class="card-body">
-            <h5 class="card-title">Friend Request</h5>
-            <p class="card-text"><a href="{% url 'users' req.member.user.username %}">{{ req.member }}</a> sent you
-                friend request</p>
-            <form method="post" action="{% url 'notification' %}">{% csrf_token %}
-                <input type="hidden" name="member" value="{{ req.member.id }}">
-                <button type="submit" class="btn btn-primary">Accept</button><button class="btn btn-secondary ml-1">Cancel</button>
-            </form>
+        <div class="card w-100 mt-2 mb-5">
+            {% for req in friend_requests %}
+                {% if req.member.user != request.user %}
+                    {% if req.added is False %}
+                        <div class="card-body">
+                            <h5 class="card-title">Friend Request</h5>
+                            <p class="card-text"><a
+                                    href="{% url 'users' req.member.user.username %}">{{ req.member }}</a> sent you
+                                friend request</p>
+                            <form method="post" action="{% url 'notification' %}">{% csrf_token %}
+                                <input type="hidden" name="member" value="{{ req.member.id }}">
+                                <button type="submit" class="btn btn-primary">Accept</button>
+                                <button class="btn btn-secondary ml-1">Cancel</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        {% if not friend_requests %}
+            <div class="card-body">
+                No Notifications found
+            </div>
+        {% endif %}
         </div>
-        {% endif %}
-        {% endif %}
-    {% endfor %}
     </div>
-
 {% endblock %}
