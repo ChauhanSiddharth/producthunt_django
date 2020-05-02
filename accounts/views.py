@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
-from accounts.models import UserProfile
+from accounts.models import UserProfile, FriendModel
 from products.models import Product
 # Create your views here.
 
@@ -51,10 +51,14 @@ def addInfo(request):
 
 @login_required
 def myprofile(request):
-	user = auth.authenticate(username=request.user.username)
 	user_data = UserProfile.objects.filter(user=request.user)
 	posts = Product.objects.filter(hunter=request.user)
-	return render(request, 'products/profile.html',{'userdata':user_data,'posts':posts})
+	for data in user_data:
+		name = data
+	friendReq = FriendModel.objects.filter(member=name)
+	if not friendReq:
+		friendReq = FriendModel.objects.filter(friend=request.user)
+	return render(request, 'products/profile.html',{'userdata':user_data,'posts':posts,'friend_requests':friendReq})
 
 @login_required
 def deletePost(request,product_id):
@@ -89,9 +93,62 @@ def viewUser(request, username):
 		return
 	for data in result:
 		username = data.id
+	friend_check = False
+	if request.POST:
+		getUser = UserProfile.objects.filter(user=request.POST.get('member'))
+		getFriend = User.objects.filter(username=request.POST.get('friend'))
+		for i in getFriend:
+			friendID = i
+		for g in getUser:
+			userID = g
+		sendReq = FriendModel(member=userID, friend=friendID)
+		sendReq.save()
+	for fm in FriendModel.objects.all():
+		print(fm.member,fm.friend)
+		for up in UserProfile.objects.filter(user=request.user):
+			for fup in UserProfile.objects.filter(user=username):
+				print('fup-->',fm.member,fup.firstname)
+				print('user-->',fm.friend,request.user)
+				if fm.member.firstname == up.firstname and fm.friend == fup.user:
+					friend_check = True
+				if fm.member.firstname == fup.firstname and fm.friend == request.user:
+					friend_check = True
 	data = UserProfile.objects.filter(user=username)
 	posts = Product.objects.filter(hunter=username)
-	return render(request, 'accounts/user.html', {'userdata':data, 'posts':posts})
+	return render(request, 'accounts/user.html', {'userdata':data, 'posts':posts,'is_friend':friend_check})
+
+@login_required
+def accountSettings(request):
+	user_data = UserProfile.objects.filter(user=request.user)
+	if request.POST:
+		firstname = request.POST.get('firstname')
+		lastname = request.POST.get('lastname')
+		dob = request.POST.get('dob')
+		address = request.POST.get('address')
+		profession = request.POST.get('profession')
+		bio = request.POST.get('bio')
+		UserProfile.objects.filter(user=request.user).update(firstname=firstname)
+		UserProfile.objects.filter(user=request.user).update(lastname=lastname)
+		UserProfile.objects.filter(user=request.user).update(dob=dob)
+		UserProfile.objects.filter(user=request.user).update(address=address)
+		UserProfile.objects.filter(user=request.user).update(profession=profession)
+		UserProfile.objects.filter(user=request.user).update(bio=bio)
+		user_data = UserProfile.objects.filter(user=request.user)
+		return render(request, 'accounts/updateaccount.html', {'userdata': user_data})
+	else:
+		return render(request, 'accounts/updateaccount.html', {'userdata': user_data})
+
+@login_required
+def notification(request):
+	user_data = UserProfile.objects.filter(user=request.user)
+	friendReq = FriendModel.objects.filter(friend=request.user)
+	if not friendReq:
+		for data in user_data:
+			name = data
+		friendReq = FriendModel.objects.filter(member=name)
+	if request.POST:
+		FriendModel.objects.filter(member=request.POST.get('member')).update(added=True)
+	return render(request, 'accounts/notification.html', {'userdata': user_data,'friend_requests':friendReq})
 
 
 def searchPost(request):
