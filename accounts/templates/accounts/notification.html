@@ -57,7 +57,7 @@
                                             href="{% url 'users' result.friend %}">{{ result.friend }}</a></p>
                                 {% else %}
                                     <p class="card-text"><a
-                                            href="{% url 'users' result.member.user.username %}">{{ result.member }}</a>
+                                            href="{% url 'users' result.member.user.username %}">{{ result.member.user }}</a>
                                     </p>
                                 {% endif %}
                             {% endif %}

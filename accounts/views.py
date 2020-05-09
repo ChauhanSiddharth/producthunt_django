@@ -86,6 +86,7 @@ def editPost(request, product_id):
 			Product.objects.filter(pk=product_id).update(body = body)
 			return redirect('/accounts/profile/')
 
+@login_required
 def viewUser(request, username):
 	try:
 		result = User.objects.filter(username=username)
