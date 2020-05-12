@@ -9,3 +9,6 @@
 .navbar a:hover{
   text-decoration: none;
 }
+.img-fluid:hover{
+  transform: scale(1.1) !important;
+}

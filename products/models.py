@@ -6,6 +6,14 @@ from django.core.validators import RegexValidator
 
 # Create your models here.
 class Product(models.Model):
+    CATEGORIES = (
+        ('ELECTRONIC', 'Electronic'),
+        ('FURNITURE', 'Furniture'),
+        ('JOBS', 'Jobs'),
+        ('WEBSITE', 'Website'),
+        ('MOBILE APP', 'Mobile App'),
+        ('GENERAL','General'),
+    )
     title = models.CharField(max_length = 255)
     url = models.URLField(max_length=200, null=True, blank=True,
                           validators=
@@ -18,6 +26,11 @@ class Product(models.Model):
     image = models.ImageField(upload_to = 'products.ConsolePicture/bytes/filename/mimetype', blank=True, null=True)
     icon = models.ImageField(upload_to = 'products.ConsolePicture/bytes/filename/mimetype', blank=True, null=True)
     body = models.TextField()
+    category = models.CharField(
+        max_length=20,
+        choices=CATEGORIES,
+        default='ELECTRONIC',
+    )
     hunter = models.ForeignKey(User, on_delete = models.CASCADE)
 
 
