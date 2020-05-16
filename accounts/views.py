@@ -135,7 +135,7 @@ def accountSettings(request):
 		UserProfile.objects.filter(user=request.user).update(profession=profession)
 		UserProfile.objects.filter(user=request.user).update(bio=bio)
 		user_data = UserProfile.objects.filter(user=request.user)
-		return render(request, 'accounts/updateaccount.html', {'userdata': user_data})
+		return render(request, 'accounts/updateaccount.html', {'userdata': user_data,'message':'Changes Saved!!'})
 	else:
 		return render(request, 'accounts/updateaccount.html', {'userdata': user_data})
 

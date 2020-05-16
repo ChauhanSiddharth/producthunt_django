@@ -27,13 +27,13 @@
       </div>
     </div>
 <br/>
-    <div class="row fixed-bottom ml-5 mb-2">
-      <div class="col-4" style="margin-left: 200px;">
-        <span class="text-muted">Created by {{ product.hunter.username }}</span>
-      </div>
-      <div class="col-4">
-        <span class="text-muted">{{ product.pub_date_pretty }}</span>
-      </div>
+    <div class="container">
+
+        <span class="text-muted" style="float:right;">{{ product.pub_date_pretty }} |
+            <span class="text-muted">
+                Created by <a href="{% url 'users' product.hunter.username %}">{{ product.hunter.username }}</a>
+            </span>
+        </span>
     </div>
 </div>
 
