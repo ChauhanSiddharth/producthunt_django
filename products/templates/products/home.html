@@ -41,27 +41,6 @@
             </a>
         </div>
 
-{#        <table class="table table-hover mt-5">#}
-{#            <thead>#}
-{#            <tr>#}
-{#                <th colspan="4" style="text-align: center;">Most Popular</th>#}
-{#            </tr>#}
-{#            </thead>#}
-{#            {% for product in products %}#}
-{#                <tbody>#}
-{#                <tr onclick="window.location='{% url 'detail' product.id %}'" style="cursor: pointer;">#}
-{#                    <td><a href="javascript:{document.getElementById('detail').submit()}"><h2#}
-{#                            class="lead">{{ product.title }}</h2></a></td>#}
-{#                    <td><p class="lead"><small>by {{ product.hunter }}</small></p></td>#}
-{#                    <td><i class="fas fa-angle-up"></i> {{ product.votes_total }}</td>#}
-{#                </tr>#}
-{#                </tbody>#}
-{#                <form method="post" class="detail" action="{% url 'detail' product.id %}">{% csrf_token %}#}
-{#                    <input type="hidden" value="{{ product.id }}">#}
-{#                </form>#}
-{#            {% endfor %}#}
-{#        </table>#}
-
         <div class="card bg-light mt-5 mb-5" id="popular-card" style="box-shadow: 5px 5px #dddddd;">
             <div class="card-header">
                 <ul class="nav nav-pills card-header-pills">
