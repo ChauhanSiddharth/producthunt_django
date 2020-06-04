@@ -1,7 +1,7 @@
 # producthunt_django
 This lets users share product details like product description and where to purchase the product information in this website. The up vote system displays list by most up-voted. Built using Django Framework.
 
-Clone or Download this project
+## Clone or Download this project
 
 Go to the directory in terminal/cmd :
 
