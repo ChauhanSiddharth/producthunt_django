@@ -5,17 +5,19 @@
     <div class="jumbotron">
         {% for member in userdata %}
             <h1 class="display-4">{{ member.firstname }} {{ member.lastname }} </h1>
-            <footer class="blockquote-footer">{{ member.bio }} as <cite title="Source Title">{{ member.profession }}</cite></footer>
+            <footer class="blockquote-footer">{{ member.bio }} as <cite
+                    title="Source Title">{{ member.profession }}</cite></footer>
             <small class="text-muted"><i class="fas fa-map-marker-alt fa-sm"></i> &nbsp;{{ member.address }}</small>
-            <form action="{% url 'users' member.user.username%}" style="margin-bottom: 5px;" method="post">{% csrf_token %}
+            <form action="{% url 'users' member.user.username %}" style="margin-bottom: 5px;"
+                  method="post">{% csrf_token %}
                 <input type="hidden" name="member" value="{{ request.user.id }}">
                 <input type="hidden" name="friend" value="{{ member.user }}">
-            {% if request.user != member.user %}
-                <button class="btn btn-sm btn-dark mr-2" style="float:right;">Message</button>
-                {% if is_friend == False %}
-                <button class="btn btn-sm btn-light mr-2" type="submit" style="float:right;">Add Friend</button>
+                {% if request.user != member.user %}
+                    <button class="btn btn-sm btn-dark mr-2" style="float:right;">Message</button>
+                    {% if is_friend == False %}
+                        <button class="btn btn-sm btn-light mr-2" type="submit" style="float:right;">Add Friend</button>
+                    {% endif %}
                 {% endif %}
-            {% endif %}
             </form>
         {% endfor %}
     </div>
@@ -24,7 +26,8 @@
             <div class="card-header" id="headingOne">
                 <h2 class="mb-0">
                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
-                            aria-expanded="true" aria-controls="collapseOne" style="text-decoration: none;color: black;">
+                            aria-expanded="true" aria-controls="collapseOne"
+                            style="text-decoration: none;color: black;">
                         Personal Information
                     </button>
                 </h2>

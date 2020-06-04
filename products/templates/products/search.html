@@ -13,14 +13,14 @@
                 <li class="list-group-item"><a href="{% url 'detail' post.id %}">{{ post.title }}</a></li>
             {% endfor %}
         </ul>
-    <br/>
+        <br/>
         {% if member %}
             <p class="text-muted">Users ({{ member|length }})</p>
         {% endif %}
         <ul class="list-group">
             {% for m in member %}
-            <li class="list-group-item"><a href="{% url 'users' m.username %}">{{ m }}</a></li>
-            {%  endfor %}
+                <li class="list-group-item"><a href="{% url 'users' m.username %}">{{ m }}</a></li>
+            {% endfor %}
         </ul>
     </div>
 
