@@ -11,4 +11,4 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('products/', include('products.urls')),
     path(r'^files/', include('db_file_storage.urls')),
-]
+] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
