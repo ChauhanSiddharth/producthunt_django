@@ -1,0 +1,14 @@
+.footer-copyright{
+  bottom: 10%;
+  margin-bottom: 5px;
+}
+.navbar a{
+  color: white;
+  text-decoration: none;
+}
+.navbar a:hover{
+  text-decoration: none;
+}
+.img-fluid:hover{
+  transform: scale(1.1) !important;
+}
