@@ -13,7 +13,11 @@
                 <input type="hidden" name="member" value="{{ request.user.id }}">
                 <input type="hidden" name="friend" value="{{ member.user }}">
                 {% if request.user != member.user %}
-                    <button class="btn btn-sm btn-dark mr-2" style="float:right;">Message</button>
+                    <button type="button" class="btn btn-sm btn-dark mr-2" data-container="body" data-toggle="popover"
+                            data-placement="top" style="float: right;"
+                            data-content="Messaging Feature Coming Soon!" disabled>
+                        Message
+                    </button>
                     {% if is_friend == False %}
                         <button class="btn btn-sm btn-light mr-2" type="submit" style="float:right;">Add Friend</button>
                     {% endif %}
@@ -71,7 +75,7 @@
         {% endfor %}
     </table>
 
-
+    </div>
 
 
 {% endblock %}
