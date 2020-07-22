@@ -3,12 +3,13 @@
 {% block content %}
     <div class="container">
         <h2 class="lead">Most Popular</h2>
+        <br/>
         <div class="left-section">
             {% for product in products %}
                 <div class="popular">
                     <div class="popular-items">
                     <span onclick="window.location='{% url 'detail' product.id %}'" style="cursor: pointer;">
-                        <img class="popularlogo" src="{{ product.image.url }}" alt="products" style="float:left;">
+                        <img class="popularlogo" src="{{ product.image.url }}" alt="products" style="float:left; margin-right: 10px;">
                         <div class="populartext">
                                 <h5>{{ product.title }}</h5>
                             <h6>posted by {{ product.hunter }}</h6>
@@ -16,12 +17,11 @@
                     </span>
                     </div>
                     <div>
-                        <p class="triangle-no"><i class="fas fa-angle-up"></i>{{ product.votes_total }}</p></button>
+                        <p class="triangle-no"><i class="fas fa-angle-up"></i>{{ product.votes_total }}</p>
                     </div>
                 </div>
             {% endfor %}
         </div>
-
 
     </div>
 
