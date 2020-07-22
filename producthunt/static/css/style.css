@@ -12,3 +12,41 @@
 .img-fluid:hover{
   transform: scale(1.1) !important;
 }
+
+.left-section {
+    width: 100%;
+    border-radius: .6rem;
+    box-shadow: -1px 1px 6px rgba(0,0,0,.1);
+    margin-bottom: 50px;
+}
+
+.popular {
+    background-color: #fff;
+    padding: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.popular:hover {
+    background-color: #f3f3f3;
+}
+.popular-items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.popularlogo {
+    width: 5.5rem;
+    height: 5.5rem;
+}
+.populartext {
+    margin-left: 1rem;
+}
+.triangle-no {
+    color: #000;
+    line-height: 1.8;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .06rem;
+}
