@@ -5,22 +5,29 @@
         <h2 class="lead">Most Popular</h2>
         <div class="left-section">
             {% for product in products %}
-            <div class="popular">
-                <div class="popular-items">
+                <div class="popular">
+                    <div class="popular-items">
                     <span onclick="window.location='{% url 'detail' product.id %}'" style="cursor: pointer;">
-                        <img class="popularlogo" src="{{ product.image.url }}" alt="{{ product.title }}">
-                        <div class="populartext">
-                            <a href="javascript:{document.getElementById('detail').submit()}" style="color: black;">
-                                <h5>{{ product.title }}</h5>
-                            </a>
-                            <h6>posted by {{ product.hunter }}</h6>
+                        <div class="row">
+                                <div class="col-sm">
+                                    <img class="popularlogo" src="{{ product.image.url }}" alt="products">
+                                </div>
+                                <div class="col-sm">
+                                    <div class="populartext">
+                                        <a href="javascript:{document.getElementById('detail').submit()}" style="color: black;">
+                                            <h5>{{ product.title }}</h5>
+                                        </a>
+                                        <h6>posted by {{ product.hunter }}</h6>
+                                    </div>
+                                </div>
                         </div>
+
                     </span>
-                </div>
-                <div>
+                    </div>
+                    <div>
                         <p class="triangle-no"><i class="fas fa-angle-up"></i>{{ product.votes_total }}</p></button>
+                    </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
 
