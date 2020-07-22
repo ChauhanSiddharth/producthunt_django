@@ -8,20 +8,11 @@
                 <div class="popular">
                     <div class="popular-items">
                     <span onclick="window.location='{% url 'detail' product.id %}'" style="cursor: pointer;">
-                        <div class="row">
-                                <div class="col-sm">
-                                    <img class="popularlogo" src="{{ product.image.url }}" alt="products">
-                                </div>
-                                <div class="col-sm">
-                                    <div class="populartext">
-                                        <a href="javascript:{document.getElementById('detail').submit()}" style="color: black;">
-                                            <h5>{{ product.title }}</h5>
-                                        </a>
-                                        <h6>posted by {{ product.hunter }}</h6>
-                                    </div>
-                                </div>
+                        <img class="popularlogo" src="{{ product.image.url }}" alt="products" style="float:left;">
+                        <div class="populartext">
+                                <h5>{{ product.title }}</h5>
+                            <h6>posted by {{ product.hunter }}</h6>
                         </div>
-
                     </span>
                     </div>
                     <div>
